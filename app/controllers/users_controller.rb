@@ -6,16 +6,16 @@ class UsersController < ApplicationController
     if !@user.is_admin?
       redirect_to user_path(current_user)
     end
-    @users = User.order("last_sign_in_at desc")
+    @users = User.order("last_sign_in_at desc").page(params[:page]).per(30)
     @total_subscriptions = MyFeed.count
     @total_articles = MyEntry.count
     @total_history = MyEntry.read.count
     @total_star = MyEntry.star.count
     @total_to_read = MyEntry.to_read.count
-    @response_obj = []
-    @users.each do |u|
-      @response_obj << [u, u.my_feeds.count, u.entries_count(nil, nil), u.entries_count('h' , nil), u.entries_count('s' , nil), u.entries_count('r', nil)]
-    end
+    #@response_obj = []
+    #@users.each do |u|
+      #@response_obj << [u, u.my_feeds.count, u.entries_count(nil, nil), u.entries_count('h' , nil), u.entries_count('s' , nil), u.entries_count('r', nil)]
+    #end
   end
   
   def job

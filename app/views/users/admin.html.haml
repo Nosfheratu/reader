@@ -1,6 +1,7 @@
 .row-fluid
   .span12
     - if current_user.is_admin?
+      = paginate @users
       .left
         %table.table.table-striped  
           %thead
@@ -25,14 +26,9 @@
               %td= @total_history
               %td= @total_star
               %td= @total_to_read
-            - @response_obj.each do |u|
+            - @users.each do |u|
               %tr
-                %td= u[0].name
-                %td= u[0].email
-                %td= u[0].sign_in_count
-                %td= smart_date(u[0].last_sign_in_at)
-                %td= u[1]
-                %td= u[2]
-                %td= u[3]
-                %td= u[4]
-                %td= u[5]
+                %td= u.name
+                %td= u.email
+                %td= u.sign_in_count
+                %td= smart_date(u.last_sign_in_at)
