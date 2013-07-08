@@ -15,17 +15,19 @@
         .row-fluid
           .span3
             %div{style: "padding-top: 10px;"}= link_to image_tag("logo.png"), root_url
-          .span4
-            %br
-          .span5.f11.right
+          .span9.f11.right
             - if current_user.present?
-              %ul.nav.nav-pills{id: "feed_status"}
+              %ul.nav.nav-pills.pull-right{id: "feed_status"}
+                - if current_user.is_admin?
+                  %li= link_to "Admin", admin_user_path(current_user), class: "red"
+                  %li= link_to "Jobs", job_user_path(current_user), class: "red"
+                  %li= switch_user_select
                 %li{id: "marked_to_read_feeds", class: @to_read.blank? ? nil : "active"}= link_to "To Read (#{@to_read_count})", user_path(current_user, :r => true)
                 %li{id: "starred_feeds", class: @is_star.blank? ? nil : "active"}= link_to "Stared (#{@star_count})", user_path(current_user, :s => true)
                 %li{id: "history_feeds", class: @history.blank? ? nil : "active"}= link_to "History (#{@history_count})", user_path(current_user, :h => true)
                 %li= link_to "Sign Out".html_safe, sign_out_path
             - else
-              %ul.nav.nav-pills
+              %ul.nav.nav-pills.pull-right
                 %li{class: (action_name.eql?("developer")) ? "active" : nil}= link_to "Developer", developer_path, style: "text-decoration: none;"
                 %li{class: (action_name.eql?("about")) ? "active" : nil}= link_to "About", about_path, style: "text-decoration: none;"
           

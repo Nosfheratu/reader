@@ -2,12 +2,12 @@
   %div{class: "span3", id: "leftPanel"}
     = link_to "All Feeds (#{@total_subscriptions})", user_path(current_user), style: @home.blank? ? "color: black;" : "font-weight: bold; color: black;"
     %br
+    %br
     - if @tags.first.present?
       - @tags.each do |t|
         - apps = t.tag_entries
         - if apps.present?
           - if apps.first.present?
-            %br
             %table
               %tr
                 %td.span1
@@ -47,7 +47,6 @@
                             %a{href: user_path(current_user, :akid => r.id), style: "padding: 0px; margin: 0px;"}= feed_name(@user, r).html_safe
 
     - if @without_tags.first.present?
-      %br
       %b Subscriptions
       %ul.nav.nav-tabs.nav-stacked{id: "2"}
         - @without_tags.each do |r|
@@ -75,15 +74,7 @@
                       %a{href: user_path(current_user, :akid => r.id), style: "padding: 0px; margin: 0px;"}= feed_name(@user, r).html_safe
 
   %div{class: "span9", id: "feedsHolder"}
-    .right
-      - if current_user.is_admin?
-        = link_to "Admin", admin_user_path(current_user), class: "red"
-        &nbsp;&nbsp;
-        = link_to "Jobs", job_user_path(current_user), class: "red"
-        &nbsp;&nbsp;
-        = switch_user_select
-        &nbsp;&nbsp;
-      = link_to "Subscribe", "#myModal1", :role => "button", "data-toggle"=>"modal", class: "btn btn-danger"  
+    .right= link_to "Subscribe", "#myModal1", :role => "button", "data-toggle"=>"modal", class: "btn btn-danger"  
     %b.red Help: If you do not see your feeds, simply refresh your page.
     - if @entries.first.blank? 
       .f11 No RSS entries found.
