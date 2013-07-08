@@ -28,9 +28,13 @@
               %ul.nav.nav-pills
                 %li{class: (action_name.eql?("developer")) ? "active" : nil}= link_to "Developer", developer_path, style: "text-decoration: none;"
                 %li{class: (action_name.eql?("about")) ? "active" : nil}= link_to "About", about_path, style: "text-decoration: none;"
+          
+      .container-fluid
+        .row-fluid
+          .span3
+            %br
+          .span9= render partial: "layouts/shared/messages"
     .container-fluid
-      .row-fluid
-        .span12= render partial: "layouts/shared/messages"
       = yield
       .row-fluid
         .span12

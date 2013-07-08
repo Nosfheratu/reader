@@ -8,7 +8,17 @@
         - if apps.present?
           - if apps.first.present?
             %br
-            %b= t.name
+            %table
+              %tr
+                %td.span1
+                  .dropdown
+                    %a{class: "dropdown-toggle", id: "dLabel#{t.id}33", "data-toggle"=>"dropdown", href: "#"} 
+                      %b.caret
+                    %ul{class: "dropdown-menu", role: "menu", "aria-labelledby"=>"dLabel#{t.id}33"}
+                      %li= link_to "Rename folder", "#", "data-toggle"=>"modal", "data-tag_id"=>t.id, :class=>"rename_tag_modal_open", style: "font-size: 12px; padding: 1px 5px;"
+                      %li= link_to "Delete Folder", user_tag_path(current_user, t), :method => :delete, :data => { :confirm => t("delete.c") }, style: "font-size: 12px; padding: 1px 5px;"
+                %td.span11
+                  %b= t.name
             %ul.nav.nav-tabs.nav-stacked.sidebar
               - apps.each do |rr|
                 - r = rr.my_feed
@@ -20,9 +30,16 @@
                           .dropdown
                             %a{class: "dropdown-toggle", id: "dLabel#{r.id}", "data-toggle"=>"dropdown", href: "#"} 
                               %b.caret
-                            %ul{class: "dropdown-menu", role: "menu", "aria-labelledby"=>"dLabel#{r.id}"}
-                              %li= link_to "Refresh", request_fetch_user_my_feed_path(current_user, r), style: "font-size: 12px; padding: 2px 5px;"
-                              %li= link_to "Unsubscribe",  user_my_feed_path(current_user, r), :method => :delete, :data => { :confirm => t("delete.c") }, style: "font-size: 12px; padding: 2px 5px;"
+                            %ul.f12{class: "dropdown-menu", role: "menu", "aria-labelledby"=>"dLabel#{r.id}"}
+                              %li= link_to "Refresh", request_fetch_user_my_feed_path(current_user, r), style: "padding: 1px 5px;"
+                              %li= link_to "Unsubscribe",  user_my_feed_path(current_user, r), :method => :delete, :data => { :confirm => t("delete.c") }, style: "padding: 1px 5px;font-size: 12px;"
+                              %li= link_to "Add to a new folder",  "#addNewTag", "data-toggle"=>"modal", "data-myfeed_id"=>r.id, "data-from_where"=>"from_folder", "data-current_tag_id"=>t.id, :class=>"new_tag_modal_open", style: "padding: 1px 5px;"
+                              .ruler
+                              %li{style: "padding: 1px 5px;"} 
+                                %b Move to folder
+                              - @tags.each do |lt|
+                                -if (lt.id != t.id)
+                                  %li{style: "padding: 0px 5px; margin: 0px;"}= link_to "#{lt.name}", :controller => "tags", :action => "move_to_folder", :tag=>{:user_id => current_user.id, :my_feed_id => r.id, :name => lt.name, :current_tag_id => t.id, :from_where => "from_folder"}
                         %td.span1
                           %a{href: user_path(current_user, :akid => r.id), style: "padding: 0px; margin: 0px;"}= image_tag r.favicon
                         %td.span9.black
@@ -42,9 +59,15 @@
                     .dropdown
                       %a{class: "dropdown-toggle", id: "dLabel#{r.id}", "data-toggle"=>"dropdown", href: "#"} 
                         %b.caret
-                      %ul{class: "dropdown-menu", role: "menu", "aria-labelledby"=>"dLabel#{r.id}"}
-                        %li= link_to "Refresh", request_fetch_user_my_feed_path(current_user, r), style: "font-size: 12px; padding: 2px 5px;"
-                        %li= link_to "Unsubscribe",  user_my_feed_path(current_user, r), :method => :delete, :data => { :confirm => t("delete.c") }, style: "font-size: 12px; padding: 2px 5px;"
+                      %ul.f12{class: "dropdown-menu", role: "menu", "aria-labelledby"=>"dLabel#{r.id}"}
+                        %li= link_to "Refresh", request_fetch_user_my_feed_path(current_user, r), style: "padding: 1px 5px;"
+                        %li= link_to "Unsubscribe",  user_my_feed_path(current_user, r), :method => :delete, :data => { :confirm => t("delete.c") }, style: "padding: 1px 5px;font-size: 12px; "
+                        %li= link_to "Add to a new folder",  "#addNewTag", "data-toggle"=>"modal", "data-myfeed_id"=>r.id, :class=>"new_tag_modal_open", style: "padding: 1px 5px;"
+                        .ruler
+                        %li{style: "padding: 1px 5px;"} 
+                          %b Move to folder
+                        - @tags.each do |t|
+                          %li{style: "padding: 0px 5px; margin: 0px;"}= link_to "#{t.name}", :controller => "tags", :action => "move_to_folder", :tag=>{:user_id => current_user.id, :my_feed_id => r.id, :name => t.name}
                   %td.span1
                     %a{href: user_path(current_user, :akid => r.id), style: "padding: 0px; margin: 0px;"}= image_tag r.favicon
                   %td.span9.black
@@ -75,3 +98,29 @@
 #myModal1.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-body
     = render partial: "my_feeds/form"
+
+#addNewTag.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "addNewTagLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-body
+    = render partial: "tags/form"
+
+#renameTag.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "addNewTagLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-body
+    = render partial: "tags/rename"
+
+:javascript
+  $(document).on('click','.new_tag_modal_open', function(){
+    $("#addNewTag #tag_my_feed_id").val($(this).data('myfeed_id'))
+    $("#addNewTag #tag_from_where").val($(this).data('from_where'))
+    $("#addNewTag #tag_current_tag_id").val($(this).data('current_tag_id'))
+  })
+
+  $(document).on('click','.rename_tag_modal_open', function(){
+    rename_tag_id = $(this).data('tag_id')
+    $.ajax({
+      url: "tags/edit",
+      type: 'post',
+      data: {
+        tag_id: rename_tag_id
+      }
+    })
+  })

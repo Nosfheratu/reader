@@ -28,6 +28,8 @@ class UsersController < ApplicationController
   
   def show
     @tags = @user.tags
+    @first_tag = @user.tags.first
+    @my_new_tag = Tag.new
     @without_tags = MyFeed.without_tags(@user)
     @my_feed = MyFeed.new
     @total_subscriptions = @user.entries_count(nil, nil)

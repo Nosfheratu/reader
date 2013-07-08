@@ -10,6 +10,9 @@ RedFeed::Application.routes.draw do
     get '/auth/google_oauth2/callback', to: 'omniauth_callbacks#all'
   end
   
+  match 'users/tags/edit'  => 'tags#edit'
+  match 'tag/move_to_folder' => 'tags#move_to_folder'
+  
   resources :users do
     get "admin", "job", on: :member
     resources :tags

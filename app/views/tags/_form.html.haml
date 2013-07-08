@@ -1,0 +1,12 @@
+= simple_form_for([@user, @my_new_tag], html: {class: 'form-vertical'}) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :user_id, as: :hidden, input_html: {value: current_user.id}
+    = f.input :my_feed_id, as: :hidden, input_html: {value: ""}
+    = f.input :from_where, as: :hidden, input_html: {value: ""}
+    = f.input :current_tag_id, as: :hidden, input_html: {value: ""}
+    %table
+      %tr
+        %td= f.input :name, label: "Folder/Tag Name", input_html: {class: "field span4", rows: 1, autocomplete: :off, style: 'height: 20px;'}
+        %td &nbsp;&nbsp;&nbsp;&nbsp;
+        %td= f.button :submit, "Add", class: "btn btn-danger"

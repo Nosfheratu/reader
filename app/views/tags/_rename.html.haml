@@ -1,0 +1,9 @@
+-if(@first_tag)
+  = simple_form_for([@user, @first_tag], html: {class: 'form-vertical'}) do |f|
+    = f.error_notification
+    .form-inputs
+      %table
+        %tr
+          %td= f.input :name, label: "Rename Folder/Tag", input_html: {class: "field span4", rows: 1, autocomplete: :off, style: 'height: 20px;'}
+          %td &nbsp;&nbsp;&nbsp;&nbsp;
+          %td= f.button :submit, "Rename", class: "btn btn-danger"

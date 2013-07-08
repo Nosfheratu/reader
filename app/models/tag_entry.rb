@@ -2,7 +2,7 @@ class TagEntry < ActiveRecord::Base
   
   #GEMS USED
   #ACCESSORS
-  attr_accessible :my_feed_id, :tag_id
+  attr_accessible :my_feed_id, :tag_id, :feed_id
   
   #ASSOCIATIONS
   belongs_to :my_feed
