@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/pykih/reader.png)](https://codeclimate.com/github/pykih/reader)
+
 # pykih reader
 
 pykih reader is an open source feed reader aimed at being a community owned and community developed feed reading & sharing platform.
