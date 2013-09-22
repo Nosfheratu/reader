@@ -8,6 +8,7 @@ RedFeed::Application.routes.draw do
     get "sign_out", :to => "devise/sessions#destroy", as: :sign_out
     get "sign_in", :to => "static_pages#index", as: :sign_in
     get '/auth/google_oauth2/callback', to: 'omniauth_callbacks#all'
+    get '/auth/facebook/callback', to: 'omniauth_callbacks#facebook'
   end
   
   match 'users/tags/edit'  => 'tags#edit'

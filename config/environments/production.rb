@@ -77,6 +77,9 @@ RedFeed::Application.configure do
   # Note: These keys have been taken from ritvij.j@gmail.com's API console
   GOOGLE_KEY = ENV['GOOGLE_KEY']
   GOOGLE_SECRET = ENV['GOOGLE_SECRET']
+
+  FACEBOOK_APP_ID = "632298786792151"
+  FACEBOOK_SECRET = "643e0239d21205eafe16a2f566801cec"
   
   config.action_mailer.default_url_options = { :host => "reader.pykih.com" }
   config.middleware.use ExceptionNotifier,

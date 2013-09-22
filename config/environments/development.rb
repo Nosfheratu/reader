@@ -40,6 +40,9 @@ RedFeed::Application.configure do
   GOOGLE_KEY = "312453794851.apps.googleusercontent.com"
   GOOGLE_SECRET = "wxKVLH1GTU59Rp5VKKJtX-ty"
 
+  FACEBOOK_APP_ID = "632298786792151"
+  FACEBOOK_SECRET = "643e0239d21205eafe16a2f566801cec"
+
   BASE_URL = "http://localhost:3000"
   STATIC_WEBSITE = "http://localhost:3000"
   REDIRECTING_URL = "http://localhost:3000"
