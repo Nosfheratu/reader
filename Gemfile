@@ -33,6 +33,7 @@ gem 'axlsx', git: "git://github.com/randym/axlsx.git"
 gem "acts_as_xlsx", git: "git://github.com/randym/acts_as_xlsx.git"
 gem 'g_ruby', '0.0.6'
 gem "omniauth-google-oauth2", git: "git://github.com/zquestz/omniauth-google-oauth2.git"
+gem 'omniauth-facebook'
 gem 'omniauth'
 
 #UI Related
