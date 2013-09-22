@@ -39,7 +39,7 @@ pykih reader is still new. We need major upgrades. Check out the issues under [V
 
 ### Contributors
 
-* Fernando Serapio - https://github.com/Nosfheratu
+* [@fherxosc](https://twitter.com/fherxosc) - https://github.com/Nosfheratu
 * [@mihirmodi](https://twitter.com/mihirmodi) - Designer, Marketing and Branding expert
 * Arun Kumar - https://github.com/arunkumar1ly
 * Ashay Rane - https://github.com/ashay
